@@ -39,6 +39,7 @@ jobs:
       - name: Send greeting
         run: |
           echo "Hello ${{ inputs.name }}"
-          git diff 151b2d3 57b1a00 > a.diff
-          ruby diffParser.rb --diff-file=a.diff
+          # git diff 151b2d3 57b1a00 > a.diff
+          # ruby diffParser.rb --diff-file=a.diff
+          git diff HEAD~1 HEAD
         
