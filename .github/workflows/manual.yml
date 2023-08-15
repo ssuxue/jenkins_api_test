@@ -27,6 +27,15 @@ jobs:
 
     # Steps represent a sequence of tasks that will be executed as part of the job
     steps:
-    # Runs a single command using the runners shell
-    - name: Send greeting
-      run: echo "Hello ${{ inputs.name }}"
+      - uses: actions/checkout@v3
+      - name: Set up Ruby
+        uses: ruby/setup-ruby@ec02537da5712d66d4d50a0f33b7eb52773b5ed1
+        with:
+          ruby-version: '3.1'
+      # Runs a single command using the runners shell
+      - name: Send greeting
+        run: |
+          echo "Hello ${{ inputs.name }}"
+          git diff HEAD~1 > a.diff
+          ruby diffParser.rb --diff-file=a.diff
+        
