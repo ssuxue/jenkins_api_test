@@ -6,17 +6,26 @@ def test_get(x, y):
     res = 0
     if x > 0 and y > 0:
         res = x
+    elif x > 0 > y:
+        res = y
+    else:
+        res = min(x, y)
     return res
 
 
 @pytest.mark.parametrize('x, y', [(5, 2), (1, 0), (2, 3), (7, 7)])
 def test_post(x, y):
     res = 0
-    match = True
+    match = False
     if match:
         res = 1 << 2
     else:
         res = 1 >> 2
+    
+    if x > y:
+        res = 1 << 5
+    else:
+        res = 1 >> 3
     return res
 
 
