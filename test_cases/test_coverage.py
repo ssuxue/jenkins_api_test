@@ -6,6 +6,8 @@ def test_get(x, y):
     res = 0
     if x > 0 and y > 0:
         res = x
+        assert 1 == 1
+    assert res == x
     return res
 
 
@@ -16,6 +18,7 @@ def test_assert1():
 def test_assert2():
     assert 1 > 0
     assert 2 > 1
+    assert 6 == 0b110
     assert 3 > 1
 
 
