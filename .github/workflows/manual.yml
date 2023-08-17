@@ -40,7 +40,7 @@ jobs:
         run: |
           echo "Hello ${{ inputs.name }}"
           git diff HEAD~1 HEAD > b.diff
-          echo b.diff
+          cat b.diff
       - name: Install dependencies
         run: |
           python -m pip install --upgrade pip
