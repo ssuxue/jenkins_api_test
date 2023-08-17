@@ -16,12 +16,10 @@ def main():
     cov.stop()
     cov.save()
 
-    report = cov.report(show_missing=True)
-
-    for k, v in enumerate(report):
-        print(f'{k} - {v} --> {report[v]}')
+    rate = cov.delta_coverage_rate(m)
+    # report = cov.coverage_data(m)
+    print('{}%'.format(round(rate * 100, 0)))
     cov.html_report()
-    print(m)
 
 
 if __name__ == '__main__':
