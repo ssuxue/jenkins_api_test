@@ -1,3 +1,4 @@
+import copy
 import sys
 from typing import Optional, Iterable, IO, Union, List, Dict, Any
 
@@ -12,13 +13,7 @@ from coverage.types import TMorf
 class CustomSummaryReporter(SummaryReporter):
     def __init__(self, coverage: Coverage) -> None:
         super().__init__(coverage)
-        self.cov_data = {}
-        data = {
-            'Name': [], 'Stmts': [],
-            'Miss': [], 'Cover': [],
-            'Missing': []
-        }
-        self.cov_data.update(data)
+        self.cov_data = {'reporters': []}
         self.percentage = None
 
     def report(self, morfs: Optional[Iterable[TMorf]], outfile: Optional[IO[str]] = None) -> dict[Any, Any]:
@@ -51,19 +46,46 @@ class CustomSummaryReporter(SummaryReporter):
         self.outfile.write("\n")
         self.record(line.rstrip())
 
-    def record(self, line: str) -> str:
+    def record(self, line: str):
         if '------' not in line and 'Missing' not in line and 'Cover' not in line:
             line = line.replace(', ', ',')
             res = line.split()
-            self.cov_data['Name'].append(res[0])
-            self.cov_data['Stmts'].append(res[1])
-            self.cov_data['Miss'].append(res[2])
-            self.cov_data['Cover'].append(res[3])
-            self.cov_data['Missing'].append(None if len(res) <= 4 else res[4])
+
+            cov_info = {
+                'name': res[0],
+                'stmts': res[1],
+                'miss': res[2],
+                'cover': res[3],
+                'missing': None if len(res) <= 4 else self.string2arr(res[4])
+            }
+
+            if res[0] == 'TOTAL':
+                self.cov_data.update({res[0]: cov_info})
+            else:
+                self.cov_data['reporters'].append(cov_info)
 
     def get_total_percentage_coverage(self):
         """Returns a float, the total percentage covere"""
         return self.total.pc_covered
+
+    def string2arr(self, content: str) -> [Any]:
+        contents = content.split(',')
+        # nums = copy.deepcopy(contents)
+        nums = []
+
+        for idx, val in enumerate(contents):
+            if '-' in val:
+                vals = val.split('-')
+                start = int(vals[0])
+                end = int(vals[1]) + 1
+                arr = [num for num in range(start, end)]
+
+                # del contents[idx]
+                # contents.extend(arr)
+                nums.extend(arr)
+            else:
+                nums.append(int(val))
+        return nums
 
 
 class CustomCoverage(Coverage):
@@ -148,3 +170,32 @@ class CustomCoverage(Coverage):
         ):
             reporter = CustomSummaryReporter(self)
             return reporter.report(morfs, outfile=file)
+
+    def get_reports(self, ret: dict[Any, Any]):
+        return ret['reporters']
+
+    def coverage_data(self, delta_data: dict[Any, Any], show_missing=True) -> dict[Any, Any]:
+        ret = self.report(show_missing=show_missing)
+        reports = self.get_reports(ret)
+        for idx, rep in enumerate(reports):
+            if rep['name'] in delta_data:
+                rep.update({'delta': delta_data[rep['name']]})
+                reports[idx] = rep
+                ret.update({'reporters': reports})
+        return ret
+
+    def delta_coverage_rate(self, delta_data: dict[Any, Any], show_missing=True) -> dict[Any, Any]:
+        ret = self.coverage_data(delta_data, show_missing=show_missing)
+        reports = self.get_reports(ret)
+
+        # covered_delta_line_count = 0
+        uncovered_delta_line_count = 0
+        delta_line_count = 0
+
+        for rep in reports:
+            delta_line_count += len(rep['delta'])
+            uncovered_delta_line_count += len(set(rep['delta']) & set(rep['missing']))
+
+        delf_cov = 1 - uncovered_delta_line_count / delta_line_count
+        return delf_cov
+
