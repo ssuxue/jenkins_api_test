@@ -49,4 +49,7 @@ jobs:
           ruff check --format=github .
       - name: rollback
         if: ${{ failure() }}
-        run: git revert HEAD
+        run: |
+          git config --global user.email "${{ snowy.email }}"
+          git config --global user.name "ssuxue"
+          git revert HEAD
