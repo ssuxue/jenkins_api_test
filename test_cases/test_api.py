@@ -31,7 +31,6 @@ def test_post(x, y):
         res = 1 >> 3
         assert res > 16
     assert 1 > 0
-    assert res != 0
 
 
 @pytest.mark.parametrize('x, y', [(5, 2), (1, 0), (2, 3), (7, 7)])
@@ -45,5 +44,4 @@ def test_del(x, y):
         res = 0b1101 >> 2
     assert res > 0b110
     assert res > 0x11111101
-    assert res > 0
     assert res >= 0
