@@ -18,7 +18,8 @@ def main():
 
     rate = cov.delta_coverage_rate(m)
     # report = cov.coverage_data(m)
-    print('{}%'.format(round(rate * 100, 0)))
+    delta_cov_rate = '{}%'.format(round(rate * 100, 0))
+    print('Incremental code coverage rate is {}'.format(delta_cov_rate))
     cov.html_report()
 
 
