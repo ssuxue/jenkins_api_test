@@ -45,3 +45,5 @@ def test_del(x, y):
         res = 0b1101 >> 2
     assert res > 0b110
     assert res > 0x11111101
+    assert res > 0
+    assert res >= 0
