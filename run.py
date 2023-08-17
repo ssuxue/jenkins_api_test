@@ -5,8 +5,17 @@ from utils.diff_parser import code_diff_map
 from utils.reporter import CustomCoverage
 
 
+def get_parser():
+
+    parser = argparse.ArgumentParser()
+    parser.add_argument('--path', type=str, default='log.diff', help='diff with git log path')
+    args = parser.parse_args()
+    return args
+    
+
 def main():
-    m = code_diff_map('./log.diff')
+    path = get_parser().path
+    m = code_diff_map(path)
     cov = CustomCoverage()
     # cov = coverage.Coverage()
     cov.start()
