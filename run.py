@@ -1,5 +1,6 @@
 import coverage
 import pytest
+import argparse
 
 from utils.diff_parser import code_diff_map
 from utils.reporter import CustomCoverage
