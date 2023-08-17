@@ -30,6 +30,7 @@ def test_post(x, y):
     else:
         res = 1 >> 3
         assert res > 16
+    assert 1 > 0
     assert res != 0
 
 
@@ -43,3 +44,4 @@ def test_del(x, y):
     else:
         res = 0b1101 >> 2
     assert res > 0b110
+    assert res > 0x11111101
