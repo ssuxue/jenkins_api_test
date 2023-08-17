@@ -1,6 +1,6 @@
 index 2d236a5..6a1c1d2 100644
---- a/test_api.py
-+++ b/test_api.py
+--- a/test_cases/test_api.py
++++ b/test_cases/test_api.py
 @@ -8,0 +9,4 @@ def test_get(x, y):
 +    elif x > 0 > y:
 +        res = y
@@ -17,8 +17,8 @@ index 2d236a5..6a1c1d2 100644
 +        res = 1 >> 3
 diff --git a/test_cases/test_coverage.py b/test_cases/test_coverage.py
 index fe19aeb..8a28411 100644
---- a/test_coverage.py
-+++ b/test_coverage.py
+--- a/test_cases/test_coverage.py
++++ b/test_cases/test_coverage.py
 @@ -17,0 +18,2 @@ def test_assert2():
 +    assert 2 > 1
 +    assert 3 > 1
