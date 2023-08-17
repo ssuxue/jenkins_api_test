@@ -1,4 +1,5 @@
 import copy
+import logging
 import sys
 from typing import Optional, Iterable, IO, Union, List, Dict, Any
 
@@ -62,7 +63,7 @@ class CustomSummaryReporter(SummaryReporter):
             if res[0] == 'TOTAL':
                 self.cov_data.update({res[0]: cov_info})
             else:
-                self.cov_data['reporters'].append(cov_info)
+                self.cov_data.get('reporters').append(cov_info)
 
     def get_total_percentage_coverage(self):
         """Returns a float, the total percentage covere"""
@@ -89,6 +90,15 @@ class CustomSummaryReporter(SummaryReporter):
 
 
 class CustomCoverage(Coverage):
+
+    def __init__(self):
+        super().__init__()
+        logger = logging.getLogger("logger")
+        handler1 = logging.StreamHandler()
+        handler1.setLevel(logging.ERROR)
+        logger.addHandler(handler1)
+        self.logger = logger
+
     def report(
             self,
             morfs: Optional[Iterable[TMorf]] = None,
@@ -172,30 +182,41 @@ class CustomCoverage(Coverage):
             return reporter.report(morfs, outfile=file)
 
     def get_reports(self, ret: dict[Any, Any]):
-        return ret['reporters']
+        return ret.get('reporters')
 
     def coverage_data(self, delta_data: dict[Any, Any], show_missing=True) -> dict[Any, Any]:
         ret = self.report(show_missing=show_missing)
         reports = self.get_reports(ret)
-        for idx, rep in enumerate(reports):
-            if rep['name'] in delta_data:
-                rep.update({'delta': delta_data[rep['name']]})
-                reports[idx] = rep
-                ret.update({'reporters': reports})
+        try:
+            for idx, rep in enumerate(reports):
+                if rep.get('name') in delta_data:
+                    rep.update({'delta': delta_data[rep.get('name')]})
+                    reports[idx] = rep
+                    ret.update({'reporters': reports})
+        except AttributeError as e:
+            self.logger.error(e)
         return ret
 
-    def delta_coverage_rate(self, delta_data: dict[Any, Any], show_missing=True) -> dict[Any, Any]:
+    def delta_coverage_rate(self, delta_data: dict[Any, Any], show_missing=True) -> float:
         ret = self.coverage_data(delta_data, show_missing=show_missing)
+        self.logger.info(ret)
         reports = self.get_reports(ret)
 
         # covered_delta_line_count = 0
         uncovered_delta_line_count = 0
         delta_line_count = 0
+        delta_cov = 0
 
-        for rep in reports:
-            delta_line_count += len(rep['delta'])
-            uncovered_delta_line_count += len(set(rep['delta']) & set(rep['missing']))
+        try:
+            for rep in reports:
+                delta_line_count += len(rep.get('delta', []))
+                uncovered_delta_line_count += len(set(rep.get('delta', [])) & set(rep.get('missing', [])))
 
-        delf_cov = 1 - uncovered_delta_line_count / delta_line_count
-        return delf_cov
+            delta_cov = 1 - uncovered_delta_line_count / delta_line_count
+        except ZeroDivisionError as e:
+            self.logger.error(e)
+        except AttributeError as e:
+            self.logger.error(e)
+
+        return delta_cov
 
