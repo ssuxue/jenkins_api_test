@@ -1,8 +1,8 @@
 import coverage
 import pytest
 
-from utils.diff_parser import code_diff_map
-from utils.reporter import CustomCoverage
+from ./utils.diff_parser import code_diff_map
+from ./utils.reporter import CustomCoverage
 
 
 def main():
