@@ -36,7 +36,9 @@ jobs:
           cat b.diff
       - name: Test with pytest
         run: |
-          python ./run.py --path=b.diff
+          python ./run.py --path=b.diff > pt.log
+          echo "rate=`awk 'END {print}' pt.log`" >> "$GITHUB_ENV"
+          echo "$rate"
       - name: Linting
         run: |
           pip install pre-commit
@@ -50,8 +52,8 @@ jobs:
       - name: rollback
         if: ${{ failure() }}
         run: |
-          git config --global user.email "${{ secrets.email }}"
-          git config --global user.name "ssuxue"
-          # git revert HEAD
-          git reset --hard HEAD^
-          git push --force origin
+          # git config --global user.email "${{ secrets.email }}"
+          # git config --global user.name "ssuxue"
+          # # git revert HEAD
+          # git reset --hard HEAD^
+          # git push --force origin
