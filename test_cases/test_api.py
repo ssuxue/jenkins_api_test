@@ -47,3 +47,8 @@ def test_del(x, y):
     assert res >= 0
     assert type(res) == 'int'
     assert res >= 8
+
+
+@pytest.mark.parametrize('x, y, z', [(5, 2, 7), (1, 0, 2), (1, 2, 3), (7, 7, 7)])
+def test_put(x, y, z):
+    assert x + y > z
