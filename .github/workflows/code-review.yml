@@ -54,3 +54,4 @@ jobs:
           git config --global user.name "ssuxue"
           # git revert HEAD
           git reset --hard HEAD^
+          git push --force origin
