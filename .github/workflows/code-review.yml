@@ -37,7 +37,7 @@ jobs:
       - name: Test with pytest
         run: |
           python ./run.py --path=b.diff > pt.log
-          echo "rate=`awk 'END {print}' pt.log`" >> "$GITHUB_ENV"
+          # echo "rate=`awk 'END {print}' pt.log`" >> "$GITHUB_ENV"
           cat pt.log
           awk "END {print}' pt.log"
           echo "$rate"
