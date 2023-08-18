@@ -45,7 +45,8 @@ jobs:
           echo '---emmm--'
           rate=`cat pt.log | awk 'END {print}'`
           echo $rate'---hhhh---'
-          rate_codition=`expr 0 '>=' 90.5`
+          # rate_codition=`expr $rate '>=' 90.5`
+          echo `expr $rate '>=' 90.5`
           echo $rate_codition
           echo '-----split line2----'
           echo "coverage-rate=$rate_codition" >> "$GITHUB_ENV"
