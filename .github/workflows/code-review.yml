@@ -38,9 +38,9 @@ jobs:
         run: |
           python ./run.py --path=b.diff > pt.log
           # echo "rate=`awk 'END {print}' pt.log`" >> "$GITHUB_ENV"
-          cat pt.log
           cat pt.log | awk 'END {print}'
           echo "rate=`cat pt.log | awk 'END {print}'`" >> "$GITHUB_ENV"
+          rate=`cat pt.log | awk 'END {print}'`
           echo "$rate"
       - name: Linting
         run: |
