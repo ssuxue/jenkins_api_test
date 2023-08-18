@@ -46,3 +46,4 @@ def test_del(x, y):
     assert res > 0x11111101
     assert res >= 0
     assert type(res) == 'int'
+    assert res >= 8
