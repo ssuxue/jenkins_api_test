@@ -52,7 +52,7 @@ jobs:
           echo '-----split line2----'
           echo "coverage-rate=$rate_codition" >> "$GITHUB_ENV"
           echo '-----split line3----'
-          echo "$coverage-rate"
+          echo "`$coverage-rate`"
       # - name: Linting
       #   run: |
       #     pip install pre-commit
