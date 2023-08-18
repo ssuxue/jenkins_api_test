@@ -45,7 +45,7 @@ jobs:
           rate=`cat pt.log | awk 'END {print}'`
           rate_codition=`expr $rate '>=' 90.0`
           echo "coverage-rate=$rate_codition" >> "$GITHUB_ENV"
-          echo "$rate"
+          echo "$coverage-rate"
       # - name: Linting
       #   run: |
       #     pip install pre-commit
