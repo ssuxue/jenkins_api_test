@@ -43,7 +43,7 @@ jobs:
           # echo "rate=`awk 'END {print}' pt.log`" >> "$GITHUB_ENV"
           cat pt.log | awk 'END {print}'
           rate=`cat pt.log | awk 'END {print}'`
-          rate_codition=echo `expr $rate '>=' 90.0`
+          rate_codition=`expr $rate '>=' 90.0`
           echo "coverage-rate=$rate_codition" >> "$GITHUB_ENV"
           echo "$rate"
       # - name: Linting
