@@ -44,6 +44,7 @@ jobs:
           cat pt.log | awk 'END {print}'
           echo '---emmm--'
           rate=`cat pt.log | awk 'END {print}'`
+          echo $rate'---hhhh---'
           rate_codition=`expr $rate '>=' 90.5`
           echo $rate_codition
           echo '-----split line2----'
