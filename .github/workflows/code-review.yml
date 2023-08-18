@@ -44,8 +44,7 @@ jobs:
           cat pt.log | awk 'END {print}'
           rate=`cat pt.log | awk 'END {print}'`
           echo '-----split line1----'
-          rate_codition=`echo $rate -gt 90.5`
-          if [ $rate -gt 90 ]
+          if [ $rate -gt 90.5 ]
           then
              rate_codition='true'
           fi
