@@ -42,6 +42,7 @@ jobs:
           python ./run.py --path=b.diff > pt.log
           # echo "rate=`awk 'END {print}' pt.log`" >> "$GITHUB_ENV"
           cat pt.log | awk 'END {print}'
+          echo '---emmm--'
           rate=`cat pt.log | awk 'END {print}'`
           rate_codition=`expr $rate '>=' 90.5`
           echo $rate_codition
