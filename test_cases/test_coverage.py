@@ -22,6 +22,10 @@ def test_assert2():
     assert 3 > 1
 
 
+def test_assert3():
+    assert 0x110 == 6
+
+
 @pytest.mark.parametrize('x, y', [(5, 2), (7, 7)])
 def test_post(x, y):
     res = 0
