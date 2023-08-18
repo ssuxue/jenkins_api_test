@@ -30,7 +30,7 @@ def test_post(x, y):
         res = 1 << 2
     else:
         res = 1 >> 2
-    return res
+    assert x / y < res
 
 
 @pytest.mark.parametrize('x, y', [(5, 2), (1, 0), (2, 3), (7, 7)])
@@ -42,4 +42,5 @@ def test_del(x, y):
         res = 0b0011 << 2
     else:
         res = 0b1101 >> 2
-    return res
+    assert res >= 0
+    assert x + y >= res
