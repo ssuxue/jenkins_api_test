@@ -43,8 +43,8 @@ jobs:
           # echo "rate=`awk 'END {print}' pt.log`" >> "$GITHUB_ENV"
           cat pt.log | awk 'END {print}'
           rate=`cat pt.log | awk 'END {print}'`
-          echo `expr $rate '>=' 90.0`
-          echo "coverage-rate=true" >> "$GITHUB_ENV"
+          rate_codition=echo `expr $rate '>=' 90.0`
+          echo "coverage-rate=$rate_codition" >> "$GITHUB_ENV"
           echo "$rate"
       # - name: Linting
       #   run: |
@@ -57,7 +57,7 @@ jobs:
           # default set of ruff rules with GitHub Annotations
           ruff check --format=github --fix .
       - name: rollback
-        if: ${{ env.coverage-rate == 'true' }}
+        if: ${{ env.coverage-rate == '0' }}
         run: |
           # git config --global user.email "${{ secrets.email }}"
           # git config --global user.name "ssuxue"
