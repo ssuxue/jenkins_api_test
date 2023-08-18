@@ -42,18 +42,11 @@ jobs:
           python ./run.py --path=b.diff > pt.log
           # echo "rate=`awk 'END {print}' pt.log`" >> "$GITHUB_ENV"
           cat pt.log | awk 'END {print}'
-          echo '---emmm--'
           rate=`cat pt.log | awk 'END {print}'`
-          echo $rate'---hhhh---'
-          # rate_codition=`expr $rate '>=' 90.5`
-          # echo `expr $rate '>=' 90.5` > tmp.log
-          echo 1 > tmp.log
+          # rate_codition=`expr $rate '>=' 80.5`
+          echo `expr $rate '>=' 90.5` > tmp.log
           rate_codition=`cat tmp.log | awk 'END {print}'`
-          echo $rate_codition
-          echo '-----split line2----'
           echo "coverage-rate=$rate_codition" >> "$GITHUB_ENV"
-          echo '-----split line3----'
-          echo "`$coverage-rate`"
       # - name: Linting
       #   run: |
       #     pip install pre-commit
