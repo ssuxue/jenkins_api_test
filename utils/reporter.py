@@ -217,6 +217,5 @@ class CustomCoverage(Coverage):
             self.logger.error(e)
         except AttributeError as e:
             self.logger.error(e)
-
-        return delta_cov
-
+        finally:
+            return delta_cov
