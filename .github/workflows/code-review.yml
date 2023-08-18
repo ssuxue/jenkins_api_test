@@ -44,10 +44,7 @@ jobs:
           echo "COVERAGE_RATE=$rate" >> "$GITHUB_OUTPUT"
           echo "$rate"
       - name: Linting
-        env: 
-          COVERAGE_RATE: ${{ steps.valid-coverage.outputs.COVERAGE_RATE }}
         run: |
-          echo "the coverage rate is $COVERAGE_RATE"
           pip install pre-commit
           pre-commit run --all-files
       - name: Lint with ruff
@@ -57,7 +54,9 @@ jobs:
           # default set of ruff rules with GitHub Annotations
           ruff check --format=github --fix .
       - name: rollback
-        if: ${{ failure() }}
+        env: 
+          COVERAGE_RATE: ${{ steps.valid-coverage.outputs.COVERAGE_RATE }}
+        if: ${{ COVERAGE_RATE }} > 95
         run: |
           # git config --global user.email "${{ secrets.email }}"
           # git config --global user.name "ssuxue"
