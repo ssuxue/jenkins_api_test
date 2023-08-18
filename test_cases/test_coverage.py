@@ -41,7 +41,7 @@ def test_post(x, y):
 @pytest.mark.parametrize('x, y', [(5, 2), (1, 0), (2, 3), (7, 7)])
 def test_del(x, y):
     if x > y:
-        return 0
+        assert 1 == 0
     match = x > y
     if match:
         res = 0b0011 << 2
@@ -49,3 +49,5 @@ def test_del(x, y):
         res = 0b1101 >> 2
     assert res >= 0
     assert x + y >= res
+    assert x + y > 0
+    assert y > x
