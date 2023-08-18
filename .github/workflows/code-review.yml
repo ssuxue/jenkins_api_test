@@ -13,9 +13,7 @@ jobs:
     # The type of runner that the job will run on
     runs-on: ubuntu-latest
     env:
-      cov_rate: 'true'
-    outputs:
-      myVar: ${{ steps.valid-coverage.outputs.coverage-rate }}
+      cov_rate: ${{ steps.valid-coverage.outputs.coverage-rate }}
 
     # Steps represent a sequence of tasks that will be executed as part of the job
     steps:
@@ -45,18 +43,18 @@ jobs:
           # echo "rate=`awk 'END {print}' pt.log`" >> "$GITHUB_ENV"
           cat pt.log | awk 'END {print}'
           rate=`cat pt.log | awk 'END {print}'`
-          echo "coverage-rate=true" >> "$GITHUB_OUTPUT"
+          echo "coverage-rate=true" >> "$GITHUB_ENV"
           echo "$rate"
       # - name: Linting
       #   run: |
       #     pip install pre-commit
       #     pre-commit run --all-files
-      # - name: Lint with ruff
-      #   run: |
-      #     # stop the build if there are Python syntax errors or undefined names
-      #     # ruff --format=github --select=E9,F63,F7,F82 --target-version=py37 .
-      #     # default set of ruff rules with GitHub Annotations
-      #     ruff check --format=github --fix .
+      - name: Lint with ruff
+        run: |
+          # stop the build if there are Python syntax errors or undefined names
+          # ruff --format=github --select=E9,F63,F7,F82 --target-version=py37 .
+          # default set of ruff rules with GitHub Annotations
+          ruff check --format=github --fix .
       - name: rollback
         if: ${{ env.cov_rate }} == 'true'
         run: |
