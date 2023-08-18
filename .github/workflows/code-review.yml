@@ -35,15 +35,19 @@ jobs:
           git diff HEAD~1 HEAD > b.diff
           cat b.diff
       - name: Test with pytest
+        id: valid-coverage
         run: |
           python ./run.py --path=b.diff > pt.log
           # echo "rate=`awk 'END {print}' pt.log`" >> "$GITHUB_ENV"
           cat pt.log | awk 'END {print}'
-          echo "rate=`cat pt.log | awk 'END {print}'`" >> "$GITHUB_ENV"
           rate=`cat pt.log | awk 'END {print}'`
+          echo "COVERAGE_RATE=$rate" >> "$GITHUB_OUTPUT"
           echo "$rate"
       - name: Linting
+        env: 
+          COVERAGE_RATE: ${{ steps.valid-coverage.outputs.COVERAGE_RATE }}
         run: |
+          echo "the coverage rate is $COVERAGE_RATE"
           pip install pre-commit
           pre-commit run --all-files
       - name: Lint with ruff
