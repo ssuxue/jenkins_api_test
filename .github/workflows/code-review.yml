@@ -37,7 +37,7 @@ jobs:
           git diff HEAD~1 HEAD > b.diff
           cat b.diff
       - name: Test with pytest
-        id: valid-coverage
+        id: linting
         run: |
           python ./run.py --path=b.diff > pt.log
           # echo "rate=`awk 'END {print}' pt.log`" >> "$GITHUB_ENV"
@@ -65,3 +65,6 @@ jobs:
           # git revert HEAD
           git reset --hard HEAD^
           git push --force origin
+      - name: Show score
+        run: echo "Your score is ${{ steps.linting.outputs.score }}."
+          
