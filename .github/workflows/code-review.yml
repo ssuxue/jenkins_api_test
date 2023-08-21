@@ -32,7 +32,7 @@ jobs:
       - name: Diff with git
         run: |
           git diff HEAD~1 HEAD > compare.diff
-          cat b.diff
+          cat compare.diff
           
       - name: Test with pytest
         id: linting
