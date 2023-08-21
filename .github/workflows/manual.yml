@@ -90,4 +90,15 @@ jobs:
           # git revert HEAD
           git reset --hard HEAD^
           git push --force origin
+  codev:
+  # The type of runner that the job will run on
+    runs-on: ubuntu-latest、
+
+    # Steps represent a sequence of tasks that will be executed as part of the job
+    steps:
+
+      - name: Upload coverage reports to Codecov
+        uses: codecov/codecov-action@v3
+        env:
+          CODECOV_TOKEN: ${{ secrets.CODECOV_TOKEN }}
             
