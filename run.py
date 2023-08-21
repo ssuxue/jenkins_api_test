@@ -2,6 +2,8 @@ import coverage
 import pytest
 import argparse
 
+from os import system
+
 from utils.diff_parser import code_diff_map
 from utils.reporter import CustomCoverage
 
@@ -32,6 +34,8 @@ def main():
     print('Incremental code coverage rate is {}%'.format(delta_cov_rate))
     print(delta_cov_rate)
     cov.html_report()
+
+    system('echo "::set-output name=score::' + str(delta_cov_rate) + '"')
 
 
 if __name__ == '__main__':
