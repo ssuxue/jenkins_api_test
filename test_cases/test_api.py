@@ -52,3 +52,10 @@ def test_del(x, y):
 @pytest.mark.parametrize('x, y, z', [(5, 2, 7), (1, 0, 2), (1, 2, 3), (7, 7, 7)])
 def test_put(x, y, z):
     assert x + y > z
+
+def test_patch()
+    assert 1 == 1
+    assert 2 == 2
+    assert 3 == 3
+    assert 3 > 2
+    assert 3 < 1
