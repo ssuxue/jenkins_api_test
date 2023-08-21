@@ -210,6 +210,8 @@ class CustomCoverage(Coverage):
         try:
             for rep in reports:
                 delta_line_count += len(rep.get('delta', []))
+                if rep.get('missing') is None:
+                    rep['missing'] = []
                 uncovered_delta_line_count += len(set(rep.get('delta', [])) & set(rep.get('missing', [])))
 
             delta_cov = 1 - uncovered_delta_line_count / delta_line_count
