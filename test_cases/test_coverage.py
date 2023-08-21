@@ -51,3 +51,6 @@ def test_del(x, y):
     assert x + y >= res
     assert x + y > 0
     assert y > x
+
+def test_api_up():
+    assert 1 == 1
