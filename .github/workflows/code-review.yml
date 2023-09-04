@@ -25,12 +25,13 @@ jobs:
         uses: actions/checkout@v3
         with:
           repository: ssuxue/mellow-server
-          path: utils
+          path: utils/mellow-server
           ref: main
       - name: Build docker image
         run: |
           ls -l utils
           ls -l ./
+          ls -l utils/mellow-server
           
       - name: Install dependencies
         run: |
