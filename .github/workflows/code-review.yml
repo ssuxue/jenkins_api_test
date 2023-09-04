@@ -30,6 +30,7 @@ jobs:
       - name: Build docker image
         run: |
           ls -l utils
+          ls -l ./
           
       - name: Install dependencies
         run: |
