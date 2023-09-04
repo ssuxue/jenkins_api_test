@@ -20,6 +20,16 @@ jobs:
         uses: actions/setup-python@v4
         with:
           python-version: "3.11"
+
+      - name: clone microsoftasr
+        uses: actions/checkout@v3
+        with:
+          repository: ssuxue/mellow-server
+          path: jenkins_api_test/utils
+          ref: main
+      - name: Build docker image
+        run: |
+          ls -l utils
           
       - name: Install dependencies
         run: |
