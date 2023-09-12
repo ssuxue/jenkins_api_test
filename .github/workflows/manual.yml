@@ -10,12 +10,20 @@ on:
   # Allows you to run this workflow manually from the Actions tab
   workflow_dispatch:
     inputs:
-        name:
+        mode-name:
           type: choice
-          description: Who to greet
+          description: build version
           options: 
-          - monalisa
-          - cschleiden
+          - aie_noop
+          - aie_build
+          - aie_load
+          - cpu
+        model-name:
+          type: choice
+          description: model
+          options: 
+          - decoder
+          - encoder
         message:
           required: true
         use-emoji:
