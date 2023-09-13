@@ -85,4 +85,6 @@ jobs:
       runs-on: ubuntu-latest
       steps:
       - name: Send greeting
-        run: echo "${{ github.event.inputs.message }} ${{ fromJSON('["", "🥳"]')[github.event.inputs.use-emoji == 'true'] }} ${{ github.event.inputs.name }}"
+        run: |
+          echo "${{ github.event.inputs.message }} ${{ fromJSON('["", "🥳"]')[github.event.inputs.use-emoji == 'true'] }} ${{ github.event.inputs.model-name }}"
+          echo "${{ github.event.inputs.mode-name }} - ${{ github.event.inputs.model-name }}"
