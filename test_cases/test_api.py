@@ -9,7 +9,7 @@ def test_get(x, y):
     elif x > 0 > y:
         res = y
     else:
-        res = min(x, y)
+        res = min(x, y) + 1
     return res
 
 
