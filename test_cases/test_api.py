@@ -10,7 +10,7 @@ def test_get(x, y):
         res = y
     else:
         res = min(x, y)
-    # res = max(x, y)
+    res = max(x, y)
     return res
 
 
