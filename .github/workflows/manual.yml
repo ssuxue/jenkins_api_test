@@ -68,16 +68,16 @@ jobs:
           ref: main
       - name: Build docker image
         run: |
-          ll -l
-          ll -l utils
+          ls -l
+          ls -l utils
           echo "build docker images"
       - name: build tvm
         run: |
           echo "build tvm"
       - name: test encoder and decoder
         run: |
-          ll -l
-          ll -l utils
+          ls -l
+          ls -l utils
           echo "test encoder and decoder"
   test-input:
       runs-on: ubuntu-latest
