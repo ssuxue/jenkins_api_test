@@ -72,7 +72,7 @@ jobs:
           echo "-------utils"
           ls -l utils
           echo "-------utils/MellowCoco
-          ls -l MellowCoco
+          # ls -l utilsMellowCoco
           echo "build docker images"
       - name: build tvm
         run: |
@@ -83,7 +83,7 @@ jobs:
           echo "-------utils"
           ls -l utils
           echo "-------utils/MellowCoco
-          ls -l MellowCoco
+          ls -l utils/MellowCoco
           echo "test encoder and decoder"
   test-input:
       runs-on: ubuntu-latest
