@@ -68,19 +68,21 @@ jobs:
           ref: main
       - name: Build docker image
         run: |
+          ll -l
+          ll -l utils
           echo "build docker images"
       - name: build tvm
         run: |
           echo "build tvm"
       - name: test encoder and decoder
         run: |
+          ll -l
+          ll -l utils
           echo "test encoder and decoder"
   test-input:
       runs-on: ubuntu-latest
       steps:
       - name: Print outputs
         run: |
-          ll -l
-          ll -l utils
           echo ${{ github.event_name }} 
           echo "${{ github.event.inputs.mode-name }} - ${{ github.event.inputs.model-name }}"
