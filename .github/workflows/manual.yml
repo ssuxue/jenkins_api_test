@@ -72,7 +72,7 @@ jobs:
           echo "-------utils"
           ls -l utils
           echo "-------utils/MellowCoco
-          # ls -l utils/MellowCoco
+          ls -l utils/MellowCoco
           echo "build docker images"
       - name: build tvm
         run: |
