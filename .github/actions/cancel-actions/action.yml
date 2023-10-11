@@ -1,0 +1,14 @@
+name: Cancel actions
+description: Uses the GitHub Actions API to cancel actions
+inputs:
+  token:
+    description: GitHub Token
+    required: false
+    default: ${{ github.token }}
+runs:
+  using: composite
+  steps:
+    - name: Cancel actions
+      shell: bash
+      run:   
+        python ./utils/cancel.py
