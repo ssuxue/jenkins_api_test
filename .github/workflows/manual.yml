@@ -123,7 +123,7 @@ jobs:
       - name: Print outputs
         run: |
           echo "test 4"
-          PWD
+          echo $PWD
           echo "
       
       - name: cancelling
