@@ -2,13 +2,17 @@ name: Cancel actions
 description: Uses the GitHub Actions API to cancel actions
 inputs:
   token:
-    description: GitHub Token
+    description: GitHub token
     required: false
     default: ${{ github.token }}
+  run_id:
+    description: Workflow id
+    required: false
+    default: ${{ github.run_id }}
 runs:
   using: composite
   steps:
     - name: Cancel actions
       shell: bash
       run:   
-        python ./utils/cancel.py --token ${{ inputs.token }}
+        python ./utils/cancel.py --rid ${{ inputs.run_id }} --token ${{ inputs.token }}
