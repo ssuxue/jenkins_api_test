@@ -124,3 +124,6 @@ jobs:
         run: |
           echo "test 4"
           echo "
+      - name: cancelling
+        if: failure()
+        uses: andymckay/cancel-action@0.3
