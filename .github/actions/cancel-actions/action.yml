@@ -11,4 +11,4 @@ runs:
     - name: Cancel actions
       shell: bash
       run:   
-        python ./utils/cancel.py
+        python ./utils/cancel.py --token ${{ inputs.token }}
