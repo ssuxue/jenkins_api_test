@@ -128,7 +128,7 @@ jobs:
           echo $PWD
           echo "
       
-      # - name: cancelling
-      #   if: failure()
-      #   # uses: andymckay/cancel-action@0.3
-      #   uses: ./.github/actions/cancel-actions
+      - name: cancelling
+        if: failure()
+        # uses: andymckay/cancel-action@0.3
+        uses: ./.github/actions/cancel-actions
