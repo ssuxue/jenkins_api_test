@@ -9,10 +9,15 @@ inputs:
     description: Workflow id
     required: false
     default: ${{ github.run_id }}
+  repo:
+    description: GitHub repo name
+    required: false
+    default: ${{ github.repository }}
 runs:
   using: composite
   steps:
     - name: Cancel actions
       shell: bash
       run:   
+        echo "${{ github.repository }}"
         python ./utils/cancel.py --rid ${{ inputs.run_id }} --token ${{ inputs.token }}
