@@ -18,6 +18,6 @@ runs:
   steps:
     - name: Cancel actions
       shell: bash
-      run:   
+      run: |
         echo "${{ github.repository }}"
         python ./utils/cancel.py --rid ${{ inputs.run_id }} --token ${{ inputs.token }}
