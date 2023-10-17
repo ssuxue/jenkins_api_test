@@ -128,7 +128,11 @@ jobs:
           echo $PWD
           echo "
       
-      - name: cancelling
+      # - name: cancelling
+      #   if: failure()
+      #   # uses: andymckay/cancel-action@0.3
+      #   uses: ./.github/actions/cancel-actions
+
+      - name: Rerun Failed jobs
         if: failure()
-        # uses: andymckay/cancel-action@0.3
-        uses: ./.github/actions/cancel-actions
+        uses: ./.github/actions/rerun-failed-jobs
