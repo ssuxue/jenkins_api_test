@@ -114,8 +114,9 @@ def rerun(api: GheRepo, rid: int, err_code: Union[int, str]):
     ids = []
 
     for job in jobs:
-        if job["status"] == "completed" and job["conclusion"] == "failure":
-            ids.append(job["id"])
+        # if job["status"] == "completed" and job["conclusion"] == "failure":
+            # ids.append(job["id"])
+        ids.append(job["id"])
     print(ids)
 
     for jid in ids:
