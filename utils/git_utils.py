@@ -98,9 +98,9 @@ def cancel_workflow(api: GheRepo, run_id: int):
         print(f"Failed to cancel workflow: {e}")
 
 
-def rerun_failed_jobs(api: GheRepo, run_id: int):
+def rerun_failed_jobs(api: GheRepo, job_id: int):
     try:
-        api.post(f"actions/runs/{run_id}/rerun-failed-jobs")
+        api.post(f"actions/jobs/{job_id}/rerun")
     except KeyboardInterrupt:
         sys.exit()
     except (RuntimeError, error.HTTPError) as e:
@@ -127,8 +127,8 @@ def rerun(api: GheRepo, rid: int, err_code: Union[int, str]):
         print(log)
         if f"Process completed with exit code {err_code}" in log:
             print(f"id -> {jid}  --  start to rerun failed jobs")
-            rerun_failed_jobs(api, rid)
-            break
+            # rerun_failed_jobs(api, rid)
+            rerun_failed_jobs(api, id)
 
 
 def get_parse():
