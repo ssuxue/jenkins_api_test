@@ -23,4 +23,4 @@ runs:
     - name: Cancel actions
       shell: bash
       run:
-        python3 ./tests/scripts/ghe_utils.py --rid ${{ inputs.run_id }} --type 3 --code ${{ inputs.code }} --token ${{ inputs.token }} --url ${{ inputs.api_url }}
+        python3 ./utils/git_utils.py --rid ${{ inputs.run_id }} --type 3 --code ${{ inputs.code }} --token ${{ inputs.token }} --url ${{ inputs.api_url }}
