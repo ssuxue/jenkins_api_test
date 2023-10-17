@@ -138,7 +138,11 @@ jobs:
       if: '!cancelled()'
       steps:
       - uses: actions/checkout@v4
+      - name: cancelling
+        if: failure()
+        uses: ./.github/actions/cancel-actions
       - name: Rerun Failed jobs
+        if: always()
         uses: ./.github/actions/rerun-failed-jobs
         with:
           code: 2
