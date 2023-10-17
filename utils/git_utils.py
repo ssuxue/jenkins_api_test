@@ -106,8 +106,9 @@ def rerun_failed_jobs(api: GheRepo, run_id: int):
 
 
 def rerun(api: GheRepo, rid: int, err_code: Union[int, str]):
-    # res = api.get(f"actions/runs/{rid}/jobs")
-    # res = json.dumps(res)
+    res = api.get(f"actions/runs/{rid}/jobs")
+    re = json.dumps(res)
+    print(re)
     # res = res.replace("'", '"')
     jobs = res["jobs"]
     ids = []
