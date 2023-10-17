@@ -137,6 +137,7 @@ jobs:
       needs: [ test-1, test-2, test-3, test-4 ]
       if: '!cancelled()'
       steps:
+      - uses: actions/checkout@v4
       - name: Rerun Failed jobs
         uses: ./.github/actions/rerun-failed-jobs
         with:
