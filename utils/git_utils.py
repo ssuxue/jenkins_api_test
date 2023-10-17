@@ -69,6 +69,7 @@ class GheRepo:
 
     def get_json_list(self, url: str) -> Any:
         url = self.base + url
+        print(url)
         logging.info(f"Requesting GET to {url}")
         req = request.Request(url, headers=self.headers())
 
