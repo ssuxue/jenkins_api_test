@@ -128,7 +128,7 @@ def rerun(api: GheRepo, rid: int, err_code: Union[int, str]):
         if f"Process completed with exit code {err_code}" in log:
             print(f"id -> {jid}  --  start to rerun failed jobs")
             # rerun_failed_jobs(api, rid)
-            rerun_failed_jobs(api, id)
+            rerun_failed_jobs(api, jid)
 
 
 def get_parse():
