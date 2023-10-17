@@ -120,9 +120,9 @@ def rerun(api: GheRepo, rid: int, err_code: Union[int, str]):
     print(ids)
 
     for jid in ids:
-        print(f"id -> {jid}")
         log = api.get_json_list(f"actions/jobs/{jid}/logs")
         if f"Process completed with exit code {err_code}" in log:
+            print(f"id -> {jid}  --  start to rerun failed jobs")
             rerun_failed_jobs(api, rid)
             break
 
