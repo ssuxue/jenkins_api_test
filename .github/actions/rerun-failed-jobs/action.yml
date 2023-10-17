@@ -1,0 +1,26 @@
+name: Re-run failed jobs
+description: Uses the GHE actions API to rerun failed jobs when jobs fail
+inputs:
+  token:
+    description: GitHub token
+    required: false
+    default: ${{ github.token }}
+  run_id:
+    description: Workflow id
+    required: false
+    default: ${{ github.run_id }}
+  code:
+    description: Process completed with exit code
+    required: false
+    default: 143
+  api_url:
+    description: GitHub api url
+    required: false
+    default: "https://api.github.com/repos/ssuxue/jenkins_api_test/"
+runs:
+  using: composite
+  steps:
+    - name: Cancel actions
+      shell: bash
+      run:
+        python3 ./tests/scripts/ghe_utils.py --rid ${{ inputs.run_id }} --type 3 --code ${{ inputs.code }} --token ${{ inputs.token }} --url ${{ inputs.api_url }}
