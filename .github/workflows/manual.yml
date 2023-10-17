@@ -136,3 +136,5 @@ jobs:
       - name: Rerun Failed jobs
         if: failure()
         uses: ./.github/actions/rerun-failed-jobs
+        with:
+          code: 2
