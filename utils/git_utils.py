@@ -18,6 +18,7 @@
 import argparse
 import json
 import logging
+import time
 import sys
 from enum import IntEnum
 from typing import Dict, Any, Optional, Union
@@ -145,6 +146,7 @@ def get_parse():
 def main():
     args = get_parse()
     api = GheRepo(args.url, token=args.token)
+    time.sleep(20)
     if args.type == PerformType.cancel_actions.value:
         cancel_workflow(api, args.rid)
     elif args.type == PerformType.rerun_failed_jobs.value:
