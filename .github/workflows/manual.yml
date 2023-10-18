@@ -156,15 +156,6 @@ jobs:
   
   test-4:
       runs-on: ubuntu-latest
-      continue-on-error: ${{ matrix.experimental }}
-      strategy:
-        fail-fast: true
-        matrix:
-          version: [6, 7, 8]
-          experimental: [false]
-          include:
-            - version: 9
-              experimental: true
       needs: [ test-decoder-encoder ]
       steps:
       - uses: actions/checkout@v4
