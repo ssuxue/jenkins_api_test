@@ -117,7 +117,43 @@ jobs:
         run: |
           echo "test 3"
           sleep 50
-    
+  
+  long-tests:
+    runs-on: [ tvm-runner-linux ]
+    needs: [ medium-tests ]
+    timeout-minutes: 60
+    strategy:
+      fail-fast: true
+      # max-parallel: 1
+      matrix:
+        split_group: [1, 2, 3, 4, 5]
+        config: [
+          {
+            name: AIE PSSIM,
+            script: echo "hello AIE "
+          }, {
+            name: ASR,
+            script: echo "ASR
+          }, {
+            name: ASR QDQ,
+            script: echo "hello ASR QDQ"
+          }, {
+            name: LLM Arch,
+            script: echo "hello LLM Arch"
+          }
+        ]
+
+    name: Long tests - ${{ matrix.config.name }} ${{ matrix.split_group }}
+    steps:
+      - uses: actions/checkout@v3
+        with:
+          submodules: recursive
+          fetch-depth: 0
+      - name: Run git submodules
+        run: |
+          ${{ matrix.config.script }}
+
+  
   test-4:
       runs-on: ubuntu-latest
       continue-on-error: ${{ matrix.experimental }}
