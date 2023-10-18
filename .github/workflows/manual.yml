@@ -120,7 +120,7 @@ jobs:
   
   long-tests:
     runs-on: [ tvm-runner-linux ]
-    needs: [ medium-tests ]
+    needs: [ test-decoder-encoder ]
     timeout-minutes: 60
     strategy:
       fail-fast: true
