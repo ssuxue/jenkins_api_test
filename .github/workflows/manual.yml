@@ -119,7 +119,7 @@ jobs:
           sleep 50
   
   long-tests:
-    runs-on: [ tvm-runner-linux ]
+    runs-on: ubuntu-latest
     needs: [ test-decoder-encoder ]
     timeout-minutes: 60
     strategy:
