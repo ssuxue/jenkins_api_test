@@ -108,6 +108,7 @@ jobs:
       steps:
       - name: Print outputs
         run: |
+          echo "selected runner = ${{ runner.name }}"
           echo "test 2"
           sleep 10
   test-3:
@@ -116,6 +117,7 @@ jobs:
       steps:
       - name: Print outputs
         run: |
+          echo "selected runner = ${{ runner.name }}"
           echo "test 3"
           sleep 10
   
@@ -154,6 +156,7 @@ jobs:
           fetch-depth: 0
       - name: Run git submodules
         run: |
+          echo "selected runner = ${{ runner.name }}"
           ${{ matrix.config.script }}
 
   
@@ -164,6 +167,7 @@ jobs:
       - uses: actions/checkout@v4
       - name: Print outputs
         run: |
+          echo "selected runner = ${{ runner.name }}"
           echo "test 4"
           echo $PWD
           echo "
