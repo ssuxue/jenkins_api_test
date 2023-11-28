@@ -39,7 +39,7 @@ jobs:
           pytest tests/test_function.py --splits 5 --group ${{ matrix.group }} --store-durations
 
       - name: Upload partial durations
-        uses: actions/upload-artifact@v2
+        uses: actions/upload-artifact@v3
         with:
           name: split-${{ matrix.group }}
           path: .test_durations
