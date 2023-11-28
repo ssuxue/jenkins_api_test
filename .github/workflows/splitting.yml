@@ -10,11 +10,18 @@ jobs:
     strategy:
       matrix:
         group: [1, 2, 3, 4, 5]
+    name: Test - ${{ matrix.group }}
     steps:
-      - name: check repository
-        uses: actions/checkout@v3
+      - uses: actions/checkout@v3
+
+      - name: Get durations from cache
+        uses: actions/cache@v3
         with:
-          fetch-depth: 2 
+          path: test_durations
+          key: test-durations-split-${{ github.run_id }}-${{ github.run_number}}-${{ matrix.group }}
+          restore-keys: |
+            test-durations-combined-${{ github.sha }}
+            test-durations-combined
           
       - name: Set up Python ${{ matrix.python-version }}
         uses: actions/setup-python@v4
@@ -29,4 +36,37 @@ jobs:
 
       - name: Pytest test
         run: |
-          pytest tests/test_function.py --splits 5 --group ${{ matrix.group }} --splitting-algorithm least_duration
+          pytest tests/test_function.py --splits 5 --group ${{ matrix.group }} --store-durations
+
+      - name: Upload partial durations
+        uses: actions/upload-artifact@v2
+        with:
+          name: split-${{ matrix.group }}
+          path: .test_durations
+
+
+  update_durations:
+    name: Combine and update integration test durations
+    runs-on: ubuntu-latest
+    needs: test
+    steps:
+      - name: Checkout
+        uses: actions/checkout@v3
+
+      - name: Get durations from cache
+        uses: actions/cache@v3
+        with:
+          path: .test_durations
+          # key won't match during the first run for the given commit, but
+          # restore-key will if there's a previous stored durations file, 
+          # so cache will both be loaded and stored
+          key: test-durations-combined-${{ github.sha }}
+          restore-keys: test-durations-combined
+
+      - name: Download artifacts
+        uses: actions/download-artifact@v3
+
+      - name: Combine test durations
+        uses: ./.github/actions/combine-durations
+        with:
+          split-prefix: split-
