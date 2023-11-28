@@ -29,4 +29,4 @@ jobs:
 
       - name: Pytest test
         run: |
-          pytest tests/test_function.py --splits 5 --group ${{ matrix.group }}
+          pytest tests/test_function.py --splits 5 --group ${{ matrix.group }} --splitting-algorithm least_duration
