@@ -34,6 +34,11 @@ jobs:
       MAX_RETRIES: 2
 
     steps:
+
+    - name: Test
+      run: |
+        echo "test"
+        echo "
     - name: Check Workflow Conclusion
       if: always()
       run: |
