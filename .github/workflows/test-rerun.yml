@@ -1,0 +1,20 @@
+name: Test Rerun
+
+on:
+  workflow_dispatch:
+
+# A workflow run is made up of one or more jobs that can run sequentially or in parallel
+jobs:
+  test:
+    runs-on: ubuntu-latest
+    name: Test Case
+    steps:
+      - uses: actions/checkout@v3
+
+      - name: Case1
+        run: |
+          echo "test case1"
+
+      - name: Case2
+        run: |
+          echo "test case2" 
