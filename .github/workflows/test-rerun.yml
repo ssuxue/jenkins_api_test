@@ -5,15 +5,21 @@ on:
 
 # A workflow run is made up of one or more jobs that can run sequentially or in parallel
 jobs:
-  test:
+  test1:
     runs-on: ubuntu-latest
-    name: Test Case
+    name: Test Case1
     steps:
       - uses: actions/checkout@v3
 
       - name: Case1
         run: |
           echo "test case1"
+
+  test2:
+    runs-on: ubuntu-latest
+    name: Test Case2
+    steps:
+      - uses: actions/checkout@v3
 
       - name: Case2
         run: |
