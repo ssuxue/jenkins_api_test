@@ -38,7 +38,7 @@ jobs:
     - name: Test
       run: |
         echo "test"
-        echo "
+        exit 1
     - name: Check Workflow Conclusion
       if: always()
       continue-on-error: true
