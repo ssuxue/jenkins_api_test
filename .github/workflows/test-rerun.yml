@@ -41,6 +41,7 @@ jobs:
         echo "
     - name: Check Workflow Conclusion
       if: always()
+      continue-on-error: true
       run: |
         if [ "${{ github.event.workflow_run.conclusion }}" == "failure" ]; then
           retries=$(expr ${{ github.event.workflow_run.re-run }} + 1)
