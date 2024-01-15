@@ -3,7 +3,6 @@ name: Test Rerun
 
 on:
   workflow_run:
-    workflows: ["Test Rerun"]
     types:
       - completed
   workflow_dispatch:
