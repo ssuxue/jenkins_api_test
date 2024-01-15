@@ -35,6 +35,7 @@ jobs:
 
     steps:
     - name: Check Workflow Conclusion
+      if: always()
       run: |
         if [ "${{ github.event.workflow_run.conclusion }}" == "failure" ]; then
           retries=$(expr ${{ github.event.workflow_run.re-run }} + 1)
