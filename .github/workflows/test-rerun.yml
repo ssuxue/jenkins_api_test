@@ -38,23 +38,19 @@ jobs:
       - name: Check Workflow Conclusion
         continue-on-error: true
         run: |
-          echo ${{ github.workflow }}
           if [ "${{ github.event.workflow_run.conclusion }}" != "failure" ]; then
-            retries=$(expr ${{ github.event.workflow_run.re-run }} + 1)
-  
-            if [ "$retries" -le $MAX_RETRIES ]; then
-              echo "Retrying, attempt $retries..."
-              WORKFLOW_ID=$(curl -s -H "Authorization: Bearer ${{ secrets.GITHUB_TOKEN }}" \
-                "https://api.github.com/repos/${{ github.repository }}/actions/runs/${{ github.run_id }}" \
-                | jq -r .workflow_id)
-              curl -X POST \
-                -H "Accept: application/vnd.github.v3+json" \
-                -H "Authorization: Bearer ${{ secrets.GITHUB_TOKEN }}" \
-                "https://api.github.com/repos/${{ github.repository }}/actions/workflows/test-rerun.yml/dispatches" \
-                -d '{"ref": "${{ github.event.workflow_run.head_branch }}"}'
-            else
-              echo "Max retries reached, no more reruns triggered."
-            fi
+          retries=$(expr ${{ github.event.workflow_run.re-run }} + 1)
+
+          if [ "$retries" -le $MAX_RETRIES ]; then
+            echo "Retrying, attempt $retries..."
+            curl -X POST \
+              -H "Accept: application/vnd.github.v3+json" \
+              -H "Authorization: Bearer ${{ secrets.GITHUB_TOKEN }}" \
+              "https://api.github.com/repos/${{ github.repository }}/actions/workflows/test-rerun.yml/dispatches" \
+              -d '{"ref": "${{ github.event.workflow_run.head_commit.id }}"}'
           else
-            echo "Workflow succeeded, no rerun triggered."
+            echo "Max retries reached, no more reruns triggered."
           fi
+        else
+          echo "Workflow succeeded, no rerun triggered."
+        fi
